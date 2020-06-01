@@ -14,7 +14,10 @@ const todos = [{
     text: 'Exercise',
     completed: true
 }]
-
+const addTodos = function(text, completed){
+    const newItem = {text:text, completed:completed}
+    todos.push(newItem)
+}
 const filters = {
     searchText: ''
 }
@@ -46,6 +49,9 @@ renderTodos(todos, filters)
 // Listen for new todo creation
 document.querySelector('#add-todo').addEventListener('click', function (e) {
     console.log('Add a new todo...')
+    console.log(e.target.value)
+    addTodos(e.target.value, true)
+    console.log(todos)
 })
 
 // Listen for todo text change
@@ -56,4 +62,13 @@ document.querySelector('#new-todo-text').addEventListener('input', function (e) 
 document.querySelector('#search-text').addEventListener('input', function (e) {
     filters.searchText = e.target.value
     renderTodos(todos, filters)
+})
+
+document.querySelector('#my-form').addEventListener('submit', function(e){
+    e.preventDefault()
+    console.log(e.target.elements.firstName.value)
+    addTodos(e.target.elements.firstName.value, true)
+    console.log(todos)
+    renderTodos(todos, filters)
+    e.target.elements.firstName.value = ''
 })
